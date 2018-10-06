@@ -49,8 +49,4 @@ def dftfreq(N, T):
     Input: Size of the time series, and time step.
     Output: Frequency serie of size N//2+1
     """
-    N = int(N/2) + 1
-    freq = np.zeros(N)
-    for n in range(N):
-        freq[n] = n/T
-    return freq
+    return np.arange(N//2 + 1) / T
