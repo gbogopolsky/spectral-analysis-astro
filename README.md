@@ -13,4 +13,4 @@ jupyter notebook
 And you're good to go. Enjoy!
 
 ## Thanks
-I would like to thank Olga Alexandrova and Baptiste Cecconi from the LESIA lab of OBSPM for organising this practical session. Thanks also to C. Torrence, G. Compo and E. Predybaylo for developing the wavelet tranform routine in Python.
+I would like to thank Olga Alexandrova ([page](https://sites.lesia.obspm.fr/olga-alexandrova/)) and Baptiste Cecconi ([page](http://www.lesia.obspm.fr/perso/baptiste-cecconi/cursus.php)) from the LESIA lab of OBSPM for organising this practical session. Thanks also to C. Torrence, G. Compo and E. Predybaylo for developing the wavelet tranform routine in Python ([here](https://github.com/chris-torrence/wavelets) is the repository).
