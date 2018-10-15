@@ -12,7 +12,7 @@ jupyter notebook
 ```
 And you're good to go. Enjoy!
 
-## Building LaTeX source and .pdf file
+## Building LaTeX source and .pdf file
 Following these [instructions](https://nbconvert.readthedocs.io/en/latest/), make sure that the `pandoc` and `texlive-xetex` are installed on your distribution using `apt-get`, then create the LaTeX file using:
 ```bash
 jupyter nbconvert --to latex --template article Rapport.ipynb
