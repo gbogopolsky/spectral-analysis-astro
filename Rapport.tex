@@ -1,0 +1,966 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Analyse spectrale des séries temporelles de mesures dans l'espace interplanétaire}
+    \author{TP A2 - Guillaume \textsc{Bogopolsky}}
+    \date{5 octobre 2018} 
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+    \begin{flushleft}
+TP A2 --- Guillaume Bogopolsky\\
+Physics of Plasma and Fusion Master's Degree\\
+Université Paris-Saclay\\
+
+Document auto-généré grâce à la commande \emph{nbviewer} de \emph{Jupyter}, et retouché manuellement. 
+La version HTML est disponible \href{http://nbviewer.jupyter.org/github/gbogopolsky/spectral-analysis-astro/blob/master/Rapport.ipynb?flush_cache=true}{ici}.
+    \end{flushleft}
+
+    \hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+    L'analyse spectrale d'un signal consiste à exhiber ses fréquences
+caractéristiques grâce à la transformée de Fourier en représentant dans
+l'espace des fréquences sa \emph{power spectral density} (PSD).
+Toutefois, comme nous le verrons, il est impossible de distinguer la
+répartition temporelle des différents modes, contenue dans les phases.
+Pour récupérer cette information, nous allons utiliser une transformée
+en ondelettes. Cela nous permettra notamment d'étudier des données
+spatiales comme les traversées de régions très différentes (ici, la
+traversée de la magnétosphère terrestre par la mission CLUSTER).
+
+Au cours de cet TP, nous allons étudier tout d'abord la transformée de
+Fourier discrète et la transformée en ondelettes de Morlet sur des
+signaux synthétiques, et étudier leurs différences, puis nous
+appliquerons ces méthodes à des données réelles.
+
+Ce compte-rendu a été réalisé grâce aux Jupyter Notebook, il vous est
+donc possible de récupérer ses fichiers dans le
+\href{https://github.com/gbogopolsky/spectral-analysis-astro}{dépôt
+GitHub} et de l'éxecuter sur votre machine.
+
+    \hypertarget{eluxe9ments-thuxe9oriques}{%
+\section{Eléments théoriques}\label{eluxe9ments-thuxe9oriques}}
+
+Commençons par définir les outils mathématiques que nous allons utiliser
+dans cette partie. \#\#\# La transformée de Fourier discrète
+
+    Tout d'abord, définissons la transformée de Fourier discrète (DFT,
+\emph{discrete Fourier transform}). Soit une série temporelle
+\(u[j] = u(t_{j})\) avec \(t_{j} = j\Delta t = j T/N\) où \(T\) est le
+temps d'enregistrement, \(N\) le nombre de mesures et
+\(j = 0,1, \ldots ,N-1\) l'indice des points de mesure temporelle. Nous
+allons décomposer ce signal sur un nombre fini des fréquences définies
+comme \(f_{n} = n/T\) avec \(n = 0,1,\ldots,N - 1\) l'indice des
+fréquences.\\
+La DFT est alors définie comme suit :
+\[ \hat{u}[n] = \frac{1}{N} \sum_{j=0}^{N-1}u[j] e^{-2 i \pi \frac{nj}{N}}\]
+
+La transformée de Fourier inverse, c'est-à-dire l'opération qui à partir
+du spectre en fréquence reconstruit le signal temporel, est ainsi :
+
+\[u[j] = \sum_{j=0}^{N-1} \hat{u}[n] e^{2 i \pi \frac{nj}{N}}\]
+
+Une telle transformée a des propriétés intéressantes : pour un signal
+réel, il est possible de montrer que :
+
+\[ \hat{u}[N - n] = \hat{u}^*[n]\] \emph{Preuve :}
+
+\[ \hat{u}[N - n] = \frac{1}{N} \sum_{j=0}^{N-1}u[j] e^{-2 i \pi \frac{(N-n)j}{N}} = \frac{1}{N} \sum_{j=0}^{N-1}u[j] e^{-2i \pi j} e^{2 i \pi \frac{nj}{N}} = \frac{1}{N} \sum_{j=0}^{N-1}u[j] e^{2 i \pi \frac{nj}{N}} = \hat{u}^*[n]\]
+
+Nous pouvons aussi démontrer que cette transformation conserve l'énergie
+:
+
+\[ \sum_{n=0}^{N-1} \left| \hat{u}[n] \right| ^2  = \sum_{n=0}^{N-1} \hat{u}[n] \hat{u}[n]^* = \frac{1}{N^2} \sum_{n = 0}^{N-1} \left( \sum_{j=0}^{N-1} u[j] e^{-2i\pi \frac{nj}{N}} \right) \left( \sum_{k=0}^{N-1} u[k] e^{2i\pi \frac{nk}{N}} \right)\]
+En séparant le produit de sommes en une somme de sommes, il vient :
+
+\[ \sum_{n=0}^{N-1} \left| \hat{u}[n] \right| ^2 = \frac{1}{N^2} \sum_{n = 0}^{N-1} \left( \sum_{\substack{j=0\\ k=0\\ j=k}}^{N-1} u[j] u[k] + \sum_{\substack{j=0\\ k=0\\ j\neq k}}^{N-1} u[j]u[k] e^{2i\pi \frac{n(k-j)}{N}} \right)\]
+Inverser les sommations permet d'écrire :
+
+\[ \sum_{n=0}^{N-1} \left| \hat{u}[n] \right| ^2 = \frac{1}{N^2} \sum_{j=0}^{N-1} u[j]^2 \sum_{n=0}^{N-1} 1 + \sum_{\substack{j=0\\ k=0\\ j\neq k}}^{N-1} u[j]u[k] \sum_{n=0}^{N-1} e^{2i\pi \frac{n(k-j)}{N}}\]
+où l'on reconnaît la somme des racines de l'unité qui vaut zéro. D'où :
+
+\[ \sum_{n=0}^{N-1} \left| \hat{u}[n] \right| ^2 = \frac{1}{N} \sum_{j=0}^{N-1} \left| u[j]\right|^2\]
+C'est le théorème de Parseval-Plancherel.
+
+Nous avons parlé plus haut de la PSD (\emph{power spectral density}).
+Elle se définit : \(S[n] = 2T \left| \hat{u}[n] \right|\) avec
+\(n = 0,1, \ldots, N/2-1\), car la deuxième moitié du spectre est
+identique à la première (comme nous l'avons montré précédemment).
+\(S[n]\) s'exprime en \(\text{V}^2 ~\text{Hz}^{-1}\). Nous pouvons
+également réécrire le théorème de Plancherel avec la PSD :
+
+\[ \sum_{n=0}^{N-1} S[n] = \frac{2T}{N} \sum_{j=0}^{N-1} \left| u[j]\right|^2\]
+
+    \hypertarget{la-transformuxe9e-en-ondelettes-de-morlet}{%
+\subsection{La transformée en ondelettes de
+Morlet}\label{la-transformuxe9e-en-ondelettes-de-morlet}}
+
+    Soit l'ondelette de Morlet définit de la façon suivante par rapport au
+temps \(t\) : \[ \psi_0 (t) = \pi^{-1/4} e^{-i \omega_0 t} e^{-t^2/2}\]
+La dilatation et la translation de cette ondelette permet de définir par
+convolution la transformée en ondelettes :
+\[\mathcal{W}(\tau, t) = \sum_{j=0}^{N-1} u(t_j) \psi^*((t_j - t)/\tau)\]
+avec \(t_j\) la position autour de laquelle on effectue la convolution
+dans une fenêtre \(\Delta t\), et \(\tau\) un paramètre de dilatation
+temporelle ou échelle temporelle. Nous choisissons cette échelle de
+sorte qu'une relation simple existe avec les fréquences de Fourier :
+\(1/f \simeq \tau\) en posant \(\omega_0 = 6\).\\
+Le carré du module du coefficient d'ondelette
+\(\left| \mathcal{W}(\tau, t) \right|^2\) représentant le \emph{quantum}
+d'énergie des fluctuations de \(u(t)\) sur la surface
+\(\Delta T \times \Delta \tau\) autour d'un moment \(t\) à l'échelle
+\(\tau\), nous pouvons tracer le scalogramme de la transformée sur un
+graphe à deux dimensions \((t,\tau)\). Il est aussi possible de remonter
+à la puissance spectrale équivalente à la PSD via le spectre des
+fluctuations en intégrant sur la variable temporelle :
+
+\[S_w = 2 \delta t \mathcal{W}(f)^2 = \frac{2 \delta t}{N} \sum_{i=0}^{N-1} \left| \mathcal{W}(f, t_j) \right|^2\]
+
+Vous trouverez plus de détails
+\href{https://sites.lesia.obspm.fr/olga-alexandrova/files/2018/01/TP_M2_PPF_Alexandrova_Cecconi_2017_appendix.pdf}{ici}.
+
+    Maintenant que nos transformées sont définies, nous allons les
+implémenter puis les mettre en applications sur des signaux
+synthétiques.
+
+\hypertarget{application-uxe0-des-signaux-synthuxe9tiques}{%
+\section{ Application à des signaux
+synthétiques}\label{application-uxe0-des-signaux-synthuxe9tiques}}
+
+\hypertarget{transformuxe9e-de-fourier}{%
+\subsection{Transformée de Fourier}\label{transformuxe9e-de-fourier}}
+
+    Nous implémentons les fonctions dans un fichier annexe
+\href{https://github.com/gbogopolsky/spectral-analysis-astro/blob/master/function.py}{\emph{function.py}}.
+La DFT est d'abord réalisée de façon intuitive avec des sommes :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ dft(data):}
+    \CommentTok{"""}
+\CommentTok{    Discrete Fourier transform of real data.}
+\CommentTok{    Input : Time serie of size N}
+\CommentTok{    Output : Time serie of size N//2+1}
+\CommentTok{    """}
+\NormalTok{    N }\OperatorTok{=} \BuiltInTok{len}\NormalTok{(data)}
+\NormalTok{    output }\OperatorTok{=}\NormalTok{ np.zeros(N, dtype}\OperatorTok{=}\BuiltInTok{complex}\NormalTok{)}
+    \ControlFlowTok{for}\NormalTok{ n }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(N):}
+        \ControlFlowTok{for}\NormalTok{ j }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(N):}
+\NormalTok{            output[n] }\OperatorTok{+=}\NormalTok{ data[j] }\OperatorTok{*}\NormalTok{ np.exp(}\OperatorTok{-}\DecValTok{2} \OperatorTok{*}\NormalTok{ np.pi }\OperatorTok{*}\NormalTok{ 1j }\OperatorTok{*}\NormalTok{ n }\OperatorTok{*}\NormalTok{ j }\OperatorTok{/}\NormalTok{ N)}
+    \ControlFlowTok{return}\NormalTok{ output[:}\BuiltInTok{int}\NormalTok{(N}\OperatorTok{/}\DecValTok{2}\NormalTok{) }\OperatorTok{+} \DecValTok{1}\NormalTok{] }\OperatorTok{/}\NormalTok{ N}
+\end{Highlighting}
+\end{Shaded}
+
+Une fonction pour générer la liste des fréquences de Fourier est
+également pratique :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+ \KeywordTok{def}\NormalTok{ dftfreq(N, T):}
+     \CommentTok{"""}
+\CommentTok{     Returns frequency coordinates for the DFT functions.}
+\CommentTok{     Input: Size of the time series, and time step.}
+\CommentTok{     Output: Frequency serie of size N//2+1}
+\CommentTok{     """}
+     \ControlFlowTok{return}\NormalTok{ np.arange(N}\OperatorTok{//}\DecValTok{2} \OperatorTok{+} \DecValTok{1}\NormalTok{) }\OperatorTok{/}\NormalTok{ T}
+\end{Highlighting}
+\end{Shaded}
+
+Appliquons cette fonction aux signaux synthétiques \(y_0(t)\),
+\(y_1(t)\) et \(y_2(t)\) définis également dans le même fichier :
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{function} \PY{k}{as} \PY{n+nn}{fct}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font.size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{17}
+        \PY{c+c1}{\PYZsh{} Constants}
+        \PY{n}{N} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{l+m+mf}{1e3}\PY{p}{)}
+        \PY{n}{T} \PY{o}{=} \PY{l+m+mi}{10}
+        \PY{n}{dt} \PY{o}{=} \PY{n}{T}\PY{o}{/}\PY{n}{N}
+        \PY{n}{A0}\PY{p}{,} \PY{n}{f0} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mf}{0.5}
+        \PY{n}{A1}\PY{p}{,} \PY{n}{f1} \PY{o}{=} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{n}{N}\PY{p}{)} \PY{o}{*} \PY{n}{dt}
+        \PY{n}{y0}\PY{p}{,} \PY{n}{y1}\PY{p}{,} \PY{n}{y2} \PY{o}{=} \PY{n}{fct}\PY{o}{.}\PY{n}{y0}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{A0}\PY{p}{,} \PY{n}{f0}\PY{p}{)}\PY{p}{,} \PY{n}{fct}\PY{o}{.}\PY{n}{y1}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{A0}\PY{p}{,} \PY{n}{A1}\PY{p}{,} \PY{n}{f0}\PY{p}{,} \PY{n}{f1}\PY{p}{)}\PY{p}{,} \PY{n}{fct}\PY{o}{.}\PY{n}{y2}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{A0}\PY{p}{,} \PY{n}{A1}\PY{p}{,} \PY{n}{f0}\PY{p}{,} \PY{n}{f1}\PY{p}{,} \PY{n}{T}\PY{p}{)}
+        \PY{n}{PSD0} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{T} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{fct}\PY{o}{.}\PY{n}{fdft}\PY{p}{(}\PY{n}{y0}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+        \PY{n}{PSD1} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{T} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{fct}\PY{o}{.}\PY{n}{fdft}\PY{p}{(}\PY{n}{y1}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+        \PY{n}{PSD2} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{T} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{fct}\PY{o}{.}\PY{n}{fdft}\PY{p}{(}\PY{n}{y2}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+        \PY{n}{freq} \PY{o}{=} \PY{n}{fct}\PY{o}{.}\PY{n}{dftfreq}\PY{p}{(}\PY{n}{N}\PY{p}{,} \PY{n}{T}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{211}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{y0}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{1.2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZus{}0\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{y1}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZus{}1\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{y2}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}y\PYZus{}2\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (s)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y(t) (V)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{212}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{semilogx}\PY{p}{(}\PY{n}{freq}\PY{p}{,} \PY{n}{PSD0}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{hat}\PY{l+s+si}{\PYZob{}y\PYZcb{}}\PY{l+s+s1}{\PYZus{}0\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{semilogx}\PY{p}{(}\PY{n}{freq}\PY{p}{,} \PY{n}{PSD1}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{hat}\PY{l+s+si}{\PYZob{}y\PYZcb{}}\PY{l+s+s1}{\PYZus{}1\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{semilogx}\PY{p}{(}\PY{n}{freq}\PY{p}{,} \PY{n}{PSD2}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{hat}\PY{l+s+si}{\PYZob{}y\PYZcb{}}\PY{l+s+s1}{\PYZus{}2\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{vlines}\PY{p}{(}\PY{p}{(}\PY{n}{f0}\PY{p}{,} \PY{n}{f1}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{freq}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{freq}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequency (Hz)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PSD (V\PYZca{}2 / Hz)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Rapport_files/Rapport_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Nous constatons tout d'abord que seule la moitié de la gamme de
+fréquence est couverte : en effet, la symétrie $ \hat{u}\left[N - n\right] =
+\hat{u}^{*}\left[n\right]$ nous confirme que ces deux moitiés sont identiques
+pour des données réelles. Il n'est donc pas nécessaire de conserver le
+reste. De plus, la fréquence maximale couverte est la fréquence de
+Nyquist, donnée par le théorème de Shannon-Nyquist :
+\(f_{max} = f_{echant}/2 = 1/(2dt)\).\\
+Sur les spectres, les fréquences \(f_0\) et \(f_1\) sont bien visibles,
+mais une chose est très claire : en ne se basant que sur la transformée
+de Fourier, il est impossible de distinguer les signaux \(y_1\) et
+\(y_2\), qui diffèrent par le déphasage entre les modes associés à ces
+deux fréquences. Cela sera possible avec transformée en ondelettes.
+
+    Nous avons également confirmé la précision de notre DFT à l'aide des
+transformées implémentées dans \texttt{numpy.fft} (cf.
+\href{http://nbviewer.jupyter.org/github/gbogopolsky/spectral-analysis-astro/blob/master/TPA2-donnees-synthetiques.ipynb?flush_cache=true}{TPA2-donnees-synthetiques.ipynb}),
+avec succès.\\
+Par ailleurs, vous avez peut-être remarqué précédemment l'utilisation de
+la fonction \texttt{fdft} au lieu de \texttt{dft}. En effet, la DFT
+implémentée comme nous l'avons décrit est très lente à cause de
+l'utilisation des doubles boucles de Python. Afin d'optimiser la vitesse
+d'exécution, nous mettons à profit la vitesse des opérations
+matricielles codées en C du paquet Numpy en implémentant \texttt{fdft}
+de la manière suivante :
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{def}\NormalTok{ fdft(data):}
+    \CommentTok{"""}
+\CommentTok{    Fast discrete Fourier transform of real data with Numpy and matrix operations.}
+\CommentTok{    Input: Time serie of size N}
+\CommentTok{    Output: Time serie of size N//2+1}
+\CommentTok{    """}
+\NormalTok{    N }\OperatorTok{=} \BuiltInTok{len}\NormalTok{(data)}
+\NormalTok{    exp }\OperatorTok{=}\NormalTok{ np.exp(}\OperatorTok{-}\DecValTok{2} \OperatorTok{*}\NormalTok{ np.pi }\OperatorTok{*}\NormalTok{ 1j }\OperatorTok{/}\NormalTok{ N }\OperatorTok{*}\NormalTok{ np.dot(np.arange(N)[:,np.newaxis], np.arange(N)[np.newaxis,:]))}
+\NormalTok{    output }\OperatorTok{=}\NormalTok{ np.dot(data, exp) }\OperatorTok{/}\NormalTok{ N}
+    \ControlFlowTok{return}\NormalTok{ output[:N}\OperatorTok{//}\DecValTok{2}\OperatorTok{+}\DecValTok{1}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+Dans cette version, nous créons une matrice contenant tous les termes de
+l'exponentielle complexe en se basant sur la matrice \(M_{n,j} = n j\)
+créée par produit matriciel, les axes étant choisi de façon adéquate. Il
+suffit ensuite de la multiplier avec notre vecteur de données pour
+obtenir la série fréquentielle. L'optimisation n'est pas encore optimale
+(la sortie étant tronquée, la routine calcule deux fois trop de
+valeurs), mais elle nous permet tout de même d'augmenter la vitesse
+d'exécution un facteur 48 !
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{timeit}
+        test = 2*T*np.abs(fct.dft(y0))**2
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3.97 s ± 148 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{timeit}
+        test = 2*T*np.abs(fct.fdft(y0))**2
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+81.4 ms ± 579 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+
+    \end{Verbatim}
+
+    \hypertarget{transformuxe9e-en-ondelettes-de-morlet}{%
+\subsection{Transformée en ondelettes de
+Morlet}\label{transformuxe9e-en-ondelettes-de-morlet}}
+
+    Afin de réaliser la transformée en ondelettes, nous allons utiliser une
+routine développée par C. Torrence, G. Compo pour leur article et
+adaptée en Python par E. Predybaylo, trouvable sur leur
+\href{https://github.com/chris-torrence/wavelets}{dépôt}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{import} \PY{n+nn}{waveletFunctions} \PY{k}{as} \PY{n+nn}{wav}
+\end{Verbatim}
+
+
+    Nous nous intéressons aux transformées des signaux \(y_1\) et \(y_2\),
+indiscernables par simple transformée de Fourier.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{wave1}\PY{p}{,} \PY{n}{period1}\PY{p}{,} \PY{n}{scale1}\PY{p}{,} \PY{n}{coi1} \PY{o}{=} \PY{n}{wav}\PY{o}{.}\PY{n}{wavelet}\PY{p}{(}\PY{n}{y1}\PY{p}{,} \PY{n}{dt}\PY{p}{)}
+        \PY{n}{wave2}\PY{p}{,} \PY{n}{period2}\PY{p}{,} \PY{n}{scale2}\PY{p}{,} \PY{n}{coi2} \PY{o}{=} \PY{n}{wav}\PY{o}{.}\PY{n}{wavelet}\PY{p}{(}\PY{n}{y2}\PY{p}{,} \PY{n}{dt}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{211}\PY{p}{)}
+         \PY{n}{contour\PYZus{}plot} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{period1}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{wave1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{extend}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (s)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Period (s)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scaleogram of \PYZdl{}y\PYZus{}}\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{cbar} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{contour\PYZus{}plot}\PY{p}{)}
+         \PY{n}{cbar}\PY{o}{.}\PY{n}{set\PYZus{}label}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{left| }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{mathcal}\PY{l+s+si}{\PYZob{}W\PYZcb{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{tau,t)}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{right| \PYZca{}}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{270}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{212}\PY{p}{)}
+         \PY{n}{contour\PYZus{}plot} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{period2}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{wave2}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{n}{extend}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (s)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Period (s)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scaleogram of \PYZdl{}y\PYZus{}}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{cbar} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{contour\PYZus{}plot}\PY{p}{)}
+         \PY{n}{cbar}\PY{o}{.}\PY{n}{set\PYZus{}label}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{left| }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{mathcal}\PY{l+s+si}{\PYZob{}W\PYZcb{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{tau,t)}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{right| \PYZca{}}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{270}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Rapport_files/Rapport_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Nous remarquons clairement la différence entre les deux signaux : dans
+le premier cas, les deux modes \(f_0\) et \(f_1\) existent sur toute la
+durée du signal, tandis que dans le deuxième cas, le mode \(f_1 = 1,0\)
+Hz succède au mode \(f_0 = 0,5\) Hz à partir de \(T/2 = 5\) s.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T0 = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{f0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ T1 = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{f1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+T0 =  2.0  T1 =  1.0
+
+    \end{Verbatim}
+
+    \hypertarget{comparaison-entre-les-deux-muxe9thodes}{%
+\subsection{Comparaison entre les deux
+méthodes}\label{comparaison-entre-les-deux-muxe9thodes}}
+
+    Enfin, comparons pour le signal \(y_1\) le spectre de Fourier et le
+spectre des wavelets obtenu est calculant la grandeur \(S_w\) définie
+précédemment :
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{spWy1} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{dt}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{wave1}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{n}{wave1}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{211}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{semilogx}\PY{p}{(}\PY{n}{freq}\PY{p}{,} \PY{n}{PSD1}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{1.2}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{freq}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{freq}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{vlines}\PY{p}{(}\PY{p}{[}\PY{n}{f0}\PY{p}{,} \PY{n}{f1}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{PSD1}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{PSD1}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequency (Hz)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PSD (V\PYZca{}2 / Hz)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{212}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{semilogx}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{period1}\PY{p}{,} \PY{n}{spWy1}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{1.2}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{vlines}\PY{p}{(}\PY{p}{[}\PY{n}{f0}\PY{p}{,} \PY{n}{f1}\PY{p}{]}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{spWy1}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{spWy1}\PY{p}{)}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{period1}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{period1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequency (Hz)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{} S\PYZus{}}\PY{l+s+si}{\PYZob{}w\PYZcb{}}\PY{l+s+s1}{(f)\PYZdl{} (V\PYZca{}2 / Hz)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Rapport_files/Rapport_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{freq}\PY{o}{.}\PY{n}{shape}\PY{p}{,} \PY{n}{period1}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(501,) (36,)
+
+    \end{Verbatim}
+
+    Nous constatons que le spectre en fréquence de Fourier est plus précis
+et défini en fréquence que le spectre des wavelets. Nous nous attendions
+à un tel résultats : en effet, afin de conserver la résolution
+temporelle, la transformée en ondelettes sacrifie sa résolution
+fréquentielle.\\
+Ainsi, pour la transformée de Fourier, \(\Delta f\) a pour valeur :
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Delta\PYZus{}f = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{freq}\PY{p}{[}\PY{l+m+mi}{42}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{freq}\PY{p}{[}\PY{l+m+mi}{41}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Delta\_f =  0.10000000000000053 Hz
+
+    \end{Verbatim}
+
+    Alors que pour la transformée en ondelettes, cette valeur est variable,
+comme nous pouvons le voir dans l'array des coordonnées fréquentielles
+(obtenue avec \(1/f \simeq T\)) :
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{period1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[48.40066546 40.69994608 34.22443876 28.77920787 24.20033273 20.34997304
+ 17.11221938 14.38960393 12.10016636 10.17498652  8.55610969  7.19480197
+  6.05008318  5.08749326  4.27805485  3.59740098  3.02504159  2.54374663
+  2.13902742  1.79870049  1.5125208   1.27187332  1.06951371  0.89935025
+  0.7562604   0.63593666  0.53475686  0.44967512  0.3781302   0.31796833
+  0.26737843  0.22483756  0.1890651   0.15898416  0.13368921  0.11241878]
+
+    \end{Verbatim}
+
+    Comme la plage de fréquences parcourue par les deux transformées reste
+proche :
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fourier :   }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{freq}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{freq}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ondelettes :}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{period1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{period1}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fourier :    50.0 Hz
+Ondelettes : 48.28824667898603 Hz
+
+    \end{Verbatim}
+
+    Soit en moyenne \(\Delta f = 48,29/36 = 1,34\) Hz, donc un ordre de
+grandeur supérieur au pas de la transformée de Fourier.\\
+C'est la conséquence du principe d'incertitude de Heisenberg, qui relie
+la résolution en fréquence \(\Delta f\) (ou en échelle temporelle
+\(\Delta \tau = 1/\Delta f\)) et la résolution temporelle \(\Delta T\) :
+\[ \Delta f \Delta T \sim const.\]
+
+    Nous allons maintenant mettre en application ces transformations sur des
+signaux réels.
+
+    \hypertarget{application-uxe0-des-signaux-ruxe9els}{%
+\section{Application à des signaux
+réels}\label{application-uxe0-des-signaux-ruxe9els}}
+
+    Nous allons maintenant étudier des données spatiales provenant de la
+mission CLUSTER lancée en 2000. Elle est constituée de quatre satellites
+qui ont pour missions d'étudier l'interaction entre le vent solaire et
+la magnétoshpère terrestre en mesurant notamment le champ magnétique en
+trois dimensions grâce à la répartition spatiale des quatres
+satellites.\\
+Aujourd'hui, nous nous intéressons au relevé des mesures de champs
+magnétique du 31 mars 2001 qui présente de multiples traversées de la
+zone de choc entre le vent solaire et la magnétosphère terrestre.
+
+En utilisant un module de \texttt{scipy} pour lire le fichier en
+\texttt{.sav}, nous pouvons tracer ces données et afin d'avoir une
+meilleure idée de ce qu'il se passe, calculons le module du vecteur
+champ magnétique :
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{io} \PY{k}{import} \PY{n}{readsav}
+         \PY{n}{data} \PY{o}{=} \PY{n}{readsav}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data\PYZus{}choc.sav}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}   \PY{c+c1}{\PYZsh{} Reading data from .sav file}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{t} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{t\PYZus{}sc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Bx} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{By} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{by}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{Bz} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{dt} \PY{o}{=} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{42}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{t}\PY{p}{[}\PY{l+m+mi}{41}\PY{p}{]}    \PY{c+c1}{\PYZsh{} Timestep}
+         \PY{n}{K} \PY{o}{=} \PY{l+m+mi}{3600}              \PY{c+c1}{\PYZsh{} Constant for seconds to decimal hours conversion}
+         \PY{n}{mod} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{Bx}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{By}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{Bz}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}     \PY{c+c1}{\PYZsh{} Computing the modulus}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{211}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{o}{/}\PY{n}{K}\PY{p}{,} \PY{n}{Bx}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}B\PYZus{}x\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{1.2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{o}{/}\PY{n}{K}\PY{p}{,} \PY{n}{By}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}B\PYZus{}y\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{1.2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{o}{/}\PY{n}{K}\PY{p}{,} \PY{n}{Bz}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}B\PYZus{}z\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{1.2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{t}\PY{o}{/}\PY{n}{K}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{t}\PY{o}{/}\PY{n}{K}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temps (h.dec)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Magnetic field (nT)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{212}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{o}{/}\PY{n}{K}\PY{p}{,} \PY{n}{mod}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{left| }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{mathbf}\PY{l+s+si}{\PYZob{}B\PYZcb{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{right|\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{1.2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{t}\PY{o}{/}\PY{n}{K}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{t}\PY{o}{/}\PY{n}{K}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (h.dec)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Magnetic field (nT)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Rapport_files/Rapport_41_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Nous remarquons de multiples franchissements de la zone de choc marqués
+par les discontinuités : en effet, cette zone est située à l'équilibre
+entre la magnétosphère et le vent solaire dont la vitesse varie, donc sa
+position varie également. Elle correspond à une onde de choc non
+collisionnelle entre le vent solaire qui est supersonique
+(\(v_{sw} \simeq 500\) km/s alors que la vitesse du son dans le milieu
+est de \(v_{m,son} \simeq 70\) km/s) et le milieu de la magnétogaine
+terrestre où il devient subsonique. Ainsi, comme sa vitesse diminue,
+l'énergie cinétique est convertie en énergie magnétique, d'où
+l'augmentation du module du champ magnétique dans la magnétospère de
+\(\left| \mathbf{B}\right| \simeq 30\) nT à
+\(\left| \mathbf{B}\right| \simeq 90\) nT.
+
+Dans cette étude, nous allons nous concentrer sur un unique
+franchissement de la zone de choc, par exemple entre 17,8 h et 18,2 h.
+Réalisons ensuite la transformée de Fourier de cet intervalle (en
+utilisant une \texttt{fft} pour des raisons de rapidité et d'usage de
+mémoire avec \texttt{fdft}).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{mask} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{t} \PY{o}{\PYZlt{}} \PY{l+m+mf}{18.2}\PY{o}{*}\PY{n}{K}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{t} \PY{o}{\PYZgt{}} \PY{l+m+mf}{17.8}\PY{o}{*}\PY{n}{K}\PY{p}{)}\PY{p}{)}        \PY{c+c1}{\PYZsh{} Mask to select the correct data}
+         \PY{n}{T} \PY{o}{=} \PY{n}{t}\PY{p}{[}\PY{n}{mask}\PY{p}{]}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{t}\PY{p}{[}\PY{n}{mask}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}                \PY{c+c1}{\PYZsh{} Duration of the selected range}
+         \PY{n}{PSDa0} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{n}{T} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{rfft}\PY{p}{(}\PY{n}{mod}\PY{p}{[}\PY{n}{mask}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
+         \PY{n}{freqa0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{fft}\PY{o}{.}\PY{n}{rfftfreq}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{mod}\PY{p}{[}\PY{n}{mask}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{dt}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{211}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{[}\PY{n}{mask}\PY{p}{]}\PY{o}{/}\PY{n}{K}\PY{p}{,} \PY{n}{mod}\PY{p}{[}\PY{n}{mask}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{left| }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{mathbf}\PY{l+s+si}{\PYZob{}B\PYZcb{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{right|\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{1.2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{t}\PY{p}{[}\PY{n}{mask}\PY{p}{]}\PY{o}{/}\PY{n}{K}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{t}\PY{p}{[}\PY{n}{mask}\PY{p}{]}\PY{o}{/}\PY{n}{K}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (h.dec)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Magnetic field (nT)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{212}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{freqa0}\PY{p}{,} \PY{n}{PSDa0}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{1.2}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{freqa0}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{freqa0}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequency (Hz)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PSD (V\PYZca{}2 / Hz)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Rapport_files/Rapport_44_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Le pas de temps limite la gamme de fréquence couverte à
+\(\Delta f = 12,8\) Hz par théorème de Shannon-Nyquist, et le bruit de
+la transformée nous empêche de voir les structures fréquentielles
+clairement. Appliquons la transformée en ondelettes sur cette plage de
+données.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{wavea0}\PY{p}{,} \PY{n}{perioda0}\PY{p}{,} \PY{n}{scalea0}\PY{p}{,} \PY{n}{coia0} \PY{o}{=} \PY{n}{wav}\PY{o}{.}\PY{n}{wavelet}\PY{p}{(}\PY{n}{mod}\PY{p}{[}\PY{n}{mask}\PY{p}{]}\PY{p}{,} \PY{n}{dt}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{contour\PYZus{}plot} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{contourf}\PY{p}{(}\PY{n}{t}\PY{p}{[}\PY{n}{mask}\PY{p}{]}\PY{o}{/}\PY{n}{K}\PY{p}{,} \PY{n}{perioda0}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log10}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{wavea0}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{42}\PY{p}{,} \PY{n}{extend}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{[}\PY{n}{mask}\PY{p}{]}\PY{o}{/}\PY{n}{K}\PY{p}{,} \PY{n}{coia0}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{perioda0}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{perioda0}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time (h.dec)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Period (s)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Scaleogram of the crossing of a shock region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{cbar} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{colorbar}\PY{p}{(}\PY{n}{contour\PYZus{}plot}\PY{p}{)}
+         \PY{n}{cbar}\PY{o}{.}\PY{n}{set\PYZus{}label}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZdl{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{log }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{left( }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{left| }\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{mathcal}\PY{l+s+si}{\PYZob{}W\PYZcb{}}\PY{l+s+s1}{(}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{tau,t)}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{right| \PYZca{}}\PY{l+s+si}{\PYZob{}2\PYZcb{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{right)\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{270}\PY{p}{,} \PY{n}{labelpad}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Rapport_files/Rapport_47_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Dans ce scalogramme, nous voyons apparaître des structures verticales,
+significative de phénomènes localisés dans le temps mettant en jeu
+toutes les échelles de période (contrairement aux ondes de la partie
+précédente, ayant une période fixée). Nous observons aussi l'existence
+de valeurs non physiques en-dehors du \emph{cone of influence} (COI)
+tracé en rouge sur la figure ci-dessus.\\
+Comme nous nous y attendions, la gamme d'échelles temporelles résolues
+est plus petite que pour la transformée de Fourier (par principe
+d'incertitude d'Heisenberg) :
+\[\Delta f_{wavelet} = f_{max} - f_{min} = \frac{1}{T_{min}} - \frac{1}{T_{max}} = 12,39 ~\text{Hz}\]
+Pour obtenir ce résultat, nous utilisons le fait que \(1/f \simeq T\)
+dans notre cas.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{perioda0}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{o}{/}\PY{n}{perioda0}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+12.3898140972904
+
+    \end{Verbatim}
+
+    Nous observons bien une densité d'énergie plus grande dans la zone de
+gauche qui correspond au champ magnétique dans la magnétogaine que dans
+la zone du vent solaire. Entre ces deux zones, l'onde de choc est
+caractérisée par sa localisation temporelle et la mise en jeu de toutes
+les échelles temporelles du plasma. Tout l'intérêt de la transformée en
+ondelettes est ici exploité : nous pouvons localiser dans le temps les
+différents modes temporels présents.
+
+Comparons enfin le spectre de Fourier avec le spectre des wavelets :
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{spWa0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{wavea0}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{/}\PY{n}{wavea0}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{n}{freqa0}\PY{p}{,} \PY{n}{PSDa0}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{1.2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fourier}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{loglog}\PY{p}{(}\PY{l+m+mi}{1}\PY{o}{/}\PY{n}{perioda0}\PY{p}{,} \PY{n}{spWa0}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mf}{1.2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wavelets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{n}{freqa0}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{freqa0}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequency (Hz)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PSD (V\PYZca{}2 / Hz)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Rapport_files/Rapport_52_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Nous constatons de la même façon que précédemment que la résolution en
+fréquence de la transformée en ondelettes est bien moins grande que la
+transformée de Fourier, mais elle nous permet de conserver l'information
+sur la localisation temporelle des modes du signal. Les deux sont donc
+très efficaces dans leurs utilisations respectives, et je dirais même
+plus, complémentaires. Il est d'ailleurs tout aussi simple d'interpréter
+les résultats des deux transformées (avec un léger avantage pour Fourier
+tout de même).\\
+Par contre, la transformée en ondelettes a une précision en basse
+fréquences plus faible que la transformée de Fourier.
+
+    \hypertarget{conclusion}{%
+\section{Conclusion}\label{conclusion}}
+
+Au cours de ce TP, nous avons introduit la transformée de Fourier via
+une DFT manuelle, ainsi que la transformée en ondelettes de Morlet. Nous
+avons pu exhiber la différence entre les deux, et leur application à des
+données réelles nous a permis de montrer leurs domaines d'applications,
+leurs forces et leurs faiblesses. Finalement, nous ne pouvons que dire
+que ces deux approches sont complémentaires lors de l'étude d'un signal
+temporel, car elles permettent de mettre en évidence des phénomènes
+différents.
+
+Je tiens à remercier Olga Alexandrova et Baptiste Cecconi du
+\href{http://lesia.obspm.fr/}{LESIA} pour leur encadrement durant cette
+journée et leur passion communicative. Merci beaucoup !
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
