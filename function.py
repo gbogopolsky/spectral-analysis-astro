@@ -39,7 +39,7 @@ def fdft(data):
     Output: Time serie of size N//2+1
     """
     N = len(data)
-    exp = np.exp(-2 * np.pi * 1j / N * np.dot(np.arange(N)[:,np.newaxis], np.arange(N)[np.newaxis,:]))
+    exp = np.exp(-2 * np.pi * 1j / N * np.outer(np.arange(N), np.arange(N)))
     output = np.dot(data, exp) / N
     return output[:N//2+1]
 
