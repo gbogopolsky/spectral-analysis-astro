@@ -7,7 +7,7 @@ If you want to run one of the notebooks of this repository, you just have to clo
 Then, using Anaconda, create the virtual environment and run the Jupyter Notebook kernel:
 ```bash
 conda create --name spectral-analysis --file requirements.txt
-source activate spectral-analysis
+conda activate spectral-analysis
 jupyter notebook
 ```
 And you're good to go. Enjoy!
